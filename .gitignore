@@ -20,9 +20,20 @@
 x64/
 x86/
 bld/
-[Bb]in/
+#[Bb]in/
 [Oo]bj/
 [Ll]og/
+
+bin/fmodex.dll
+bin/fmodex64.dll
+bin/fmodexL.dll
+bin/fmodexL64.dll
+bin/FreeImage.dll
+bin/wormchat.exe
+bin/wormchat.exp
+bin/wormchat.iobj
+bin/wormchat.ipdb
+bin/wormchat.lib
 
 # Visual Studio 2015/2017 cache/options directory
 .vs/
