@@ -24,12 +24,7 @@ void ofApp::setup()
 	pano.setup();
 	toggleFullScreen();
 
-	if (bUseVideo)
-	{
-		//videoPlayer.setPixelFormat(OF_PIXELS_RGB);
-		//videoPlayer.setLoopState(ofLoopType::OF_LOOP_NORMAL);
-	}
-	else
+	if (!bUseVideo)
 	{
 		pano.loadImage("images/room.jpg");
 	}
@@ -43,7 +38,7 @@ void ofApp::setup()
 	lpFilterFaceSize.setFc(fc);
 
 	turningRate = 0.325f;
-	minRelativeFaceHeight = 0.1f;
+	minRelativeFaceHeight = 0.05f;
 	maxRelativeFaceHeight = 0.75f;
 	calibRectSize = 128.0f;
 

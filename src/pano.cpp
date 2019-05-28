@@ -116,12 +116,10 @@ void Pano::draw()
     glCullFace(GL_FRONT);
 
 	// z = eye of camera, y = up, x = right
-	glm::mat4 rot = glm::mat4();
-	rot = glm::rotate(rot, glm::radians(180.0f), glm::vec3(0.0f, 0.0f, 1.0f));
-	rot = glm::rotate(rot, glm::radians(position.x - deviation.x), glm::vec3(0.0f, -1.0f, 0.0f));
-	rot = glm::rotate(rot, glm::radians(position.y - deviation.y), glm::vec3(-1.0f, 0.0f, 0.0f));
-	rot = glm::rotate(rot, glm::radians(tempXRotCorrection + (flip) ? 180.0f : 0), glm::vec3(0.0f, 1.0f, 0.0f));
-	glm::quat quatrot = glm::toQuat(rot);
+	glm::quat yaw = glm::toQuat(glm::rotate(glm::radians((position.x - deviation.x) + tempXRotCorrection + ((flip) ? 180.0f : 0)), glm::vec3(0.0f, 1.0f, 0.0f)));
+	glm::quat pitch = glm::toQuat(glm::rotate(glm::radians(position.y - deviation.y), glm::vec3(1.0f, 0.0f, 0.0f)));
+	glm::quat roll = glm::toQuat(glm::rotate(glm::radians(180.0f), glm::vec3(0.0f, 0.0f, 1.0f)));
+	glm::quat rot = pitch * yaw * roll;
 
 	objectDistance *= ((bFullScreen) ? objectHeightCorrection : 1.0f);
 
@@ -133,7 +131,7 @@ void Pano::draw()
 		domemaster.begin(i);
 		ofPushMatrix();
 		sphere.setScale(glm::vec3(objectDistance));
-		sphere.setGlobalOrientation(quatrot);
+		sphere.setOrientation(rot);
 		sphere.draw();
 		ofPopMatrix();
 		domemaster.end(i);
